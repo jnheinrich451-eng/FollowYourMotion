@@ -1,0 +1,33 @@
+# Wan2.1 T2V-1.3B -- the validation pass, not the table.
+#
+# The port's own default, and per README_WAN it fits under 24 GB. Use it to
+# confirm guidance actually fires and the AMF is sane before spending A100 hours
+# at 14B: the Wan guidance_blocks and motion_temp are documented as starting
+# points, not ported optima, so they need checking somewhere cheap first.
+#
+
+# num_frames must be 4k+1, so 21 rather than CogVideoX's 24. Both are 6 latent
+# frames. --low_vram enables CPU offload, which 14B needs even on an A100.
+
+run_tag: wan1_3b
+model: 1.3b
+video_length: 21
+seeds: [1]
+
+runners:
+  wan:
+    python: null
+    cwd: null
+    script: motion_guidance_wan.py
+    args: ["-v", "{video_path}", "-p", "{prompt}",
+           "--model", "{model}", "-n", "{video_length}",
+           "--output_path", "{out}", "--seed", "{seed}"]
+    expect: results.mp4
+
+configs:
+  ditflow_z:   {runner: wan, loss_type: flow, opt_mode: latent}
+  ditflow_rho: {runner: wan, loss_type: flow, opt_mode: emb}
+  smm:         {runner: wan, loss_type: smm,  opt_mode: latent}
+  moft:        {runner: wan, loss_type: moft, opt_mode: latent}
+  injection:   {runner: wan, no_guidance: true}
+  backbone:    {runner: wan, no_guidance: true, no_injection: true}

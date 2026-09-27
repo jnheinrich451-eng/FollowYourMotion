@@ -349,7 +349,8 @@ class WanModel_attn(torch.nn.Module):
                     )
             else:
                 x,attn = block(x, context, t_mod, freqs)
-            all_attn.append(attn.cpu())
+            reducer = getattr(self, "attn_reducer", None)
+            all_attn.append(reducer(attn) if reducer else attn.cpu())
         x = self.head(x, t)
         x = self.unpatchify(x, (f, h, w))
         return x, all_attn

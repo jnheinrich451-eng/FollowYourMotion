@@ -408,9 +408,14 @@ class ModelManager:
                     allowed_model_names=model_names, model_manager=self
                 )
                 for model_name, model in zip(model_names, models):
-                    if 'override' in model_names[0]:
+                    if 'override' in model_names[0] and os.environ.get("FYM_NO_SPLIT") != "1":
                         # all_heads_type=torch.load('/aifs4su/hansirui_3rd/qiyuan/DiffSynth-Studio/examples/wanvideo/data/example_dataset/head_types.pt')
-                        all_heads_type=torch.load('examples/wanvideo/data/example_dataset/head_types.pt')
+                        # FYM_HEAD_TYPES points at the clip's own head_types.pt; the default path ignores --dataset_path
+                        all_heads_type=torch.load(os.environ.get("FYM_HEAD_TYPES", 'examples/wanvideo/data/example_dataset/head_types.pt'))
+                        # split_QKV leaves the new q/k/v biases at random init; seeding makes every load of a clip
+                        # (spatial tuning, temporal tuning, inference) draw the same ones
+                        if os.environ.get("FYM_SPLIT_SEED") is not None:
+                            torch.manual_seed(int(os.environ["FYM_SPLIT_SEED"]))
                         model.split_attention(all_heads_type=all_heads_type)
                     self.model.append(model)
                     self.model_path.append(file_path)

@@ -1,0 +1,19 @@
+# CogVideoX-5B -- DiTFlow's headline configuration.
+#
+# The paper's Table 1 reports 5B and 2B; 5B is the featured column and the repo
+# default, so a delta measured here is against the number DiTFlow leads with.
+# Backprop runs through blocks 0..20 of a 5B model, which does not fit 16 GB --
+# this grid needs an A100.
+
+run_tag: cogvx5b
+model: 5b
+video_length: 21   # the paper's count, and CogVideoX's native 4k+1
+seeds: [1]
+
+configs:
+  ditflow_z:   {loss_type: flow, opt_mode: latent}
+  ditflow_rho: {loss_type: flow, opt_mode: emb}
+  smm:         {loss_type: smm,  opt_mode: latent}
+  moft:        {loss_type: moft, opt_mode: latent}
+  injection:   {no_guidance: true}
+  backbone:    {no_guidance: true, no_injection: true}

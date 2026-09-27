@@ -1,0 +1,31 @@
+# Wan2.1 T2V-14B, through motion_guidance_wan.py.
+#
+# A separate table, never merged with the CogVideoX ones: different
+# architecture, VAE, text encoder and training data, so the numbers are not
+# comparable across backbones no matter how the parameter counts line up.
+#
+# num_frames must be 4k+1, so 21 rather than CogVideoX's 24. Both are 6 latent
+# frames. --low_vram enables CPU offload, which 14B needs even on an A100.
+
+run_tag: wan14b
+model: 14b
+video_length: 21
+seeds: [1]
+
+runners:
+  wan:
+    python: null
+    cwd: null
+    script: motion_guidance_wan.py
+    args: ["-v", "{video_path}", "-p", "{prompt}",
+           "--model", "{model}", "-n", "{video_length}",
+           "--output_path", "{out}", "--seed", "{seed}", "--low_vram"]
+    expect: results.mp4
+
+configs:
+  ditflow_z:   {runner: wan, loss_type: flow, opt_mode: latent}
+  ditflow_rho: {runner: wan, loss_type: flow, opt_mode: emb}
+  smm:         {runner: wan, loss_type: smm,  opt_mode: latent}
+  moft:        {runner: wan, loss_type: moft, opt_mode: latent}
+  injection:   {runner: wan, no_guidance: true}
+  backbone:    {runner: wan, no_guidance: true, no_injection: true}

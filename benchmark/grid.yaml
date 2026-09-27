@@ -1,0 +1,18 @@
+# Method grid for the DiTFlow sweep.
+#
+# The six rows are the "Setups seen in paper" block from README.md. Freeze this
+# file before the sweep starts: sweep.py hashes it into every done.json, so a
+# mid-sweep edit is detected rather than silently mixing protocols across cells.
+
+run_tag: cogvx2b   # first path component, so backbones never overwrite each other
+model: 2b
+video_length: 21   # the paper's count, and CogVideoX's native 4k+1
+seeds: [1]         # add seeds only on the small variance subset
+
+configs:
+  ditflow_z:   {loss_type: flow, opt_mode: latent}   # default DiTFlow (-z_t)
+  ditflow_rho: {loss_type: flow, opt_mode: emb}      # DiTFlow (-rho_t)
+  smm:         {loss_type: smm,  opt_mode: latent}   # DiTFlow authors' SMM re-impl
+  moft:        {loss_type: moft, opt_mode: latent}   # DiTFlow authors' MOFT re-impl
+  injection:   {no_guidance: true}                   # KV injection only
+  backbone:    {no_guidance: true, no_injection: true}

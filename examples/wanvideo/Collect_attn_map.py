@@ -258,6 +258,8 @@ class ModelForAttnMap(torch.nn.Module):
 
         # Loss
         self.pipe.device = "cuda"
+        if os.environ.get("FYM_SEED") is not None:
+            torch.manual_seed(int(os.environ["FYM_SEED"]))
         noise = torch.randn_like(latents)
         timestep_id =torch.tensor([1]) #torch.randint(0, self.pipe.scheduler.num_train_timesteps, (1,))
         timestep = self.pipe.scheduler.timesteps[timestep_id].to(dtype=self.pipe.torch_dtype, device=self.pipe.device)
@@ -265,20 +267,18 @@ class ModelForAttnMap(torch.nn.Module):
         noisy_latents = self.pipe.scheduler.add_noise(latents, noise, timestep)
         # training_target = self.pipe.scheduler.training_target(latents, noise, timestep)
 
+        # Classify each layer as soon as its map exists; holding all 30 s x s maps needs tens of GB of RAM
+        frame_size = h * w // 4
+        self.pipe.denoising_model().attn_reducer = lambda a: classify_head(a, frame_size=frame_size)
+
         # Compute loss
-        noise_pred,all_attn = self.pipe.denoising_model()(
+        noise_pred,all_head_type = self.pipe.denoising_model()(
             noisy_latents, timestep=timestep, **prompt_emb, **extra_input,
             use_gradient_checkpointing=self.use_gradient_checkpointing,
             use_gradient_checkpointing_offload=self.use_gradient_checkpointing_offload
         )
-        print('attention layer nums:', len(all_attn))
-
-        all_head_type=[]
-        for a in all_attn:
-            print('attn shape',a.shape)#b n s s
-            type_list=classify_head(a,frame_size=h*w//4)# size=num_head 
-            all_head_type.append(type_list)
-        return all_head_type,all_attn
+        print('attention layer nums:', len(all_head_type))
+        return all_head_type,None
 
 
 

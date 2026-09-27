@@ -1,0 +1,30 @@
+clip_id,locomotion,find,replace
+000000000035.1.003,vehicle_rigid,A red sports car,A rusty pickup truck
+000000000396.3.002,vehicle_rigid,A sleek silver sports car,A rugged silver pickup truck
+000000000299.1.005,vehicle_rigid,A sleek white sports car,A rugged white pickup truck
+000000000100.0.003,vehicle_rigid,A sleek black sports car,A rugged black pickup truck
+000000000217.0.006,vehicle_rigid,A sleek blue sports car,A rugged blue pickup truck
+000000000418.0.005,vehicle_rigid,A range rover,A pickup truck
+000000000284.0.006,vehicle_rigid,A green vehicle,A green tractor
+000000000230.2.013,vehicle_rigid,A group of people on a safari jeep,A group of people on a pickup truck
+000000000252.1.018,draft_animal,A horse-drawn carriage,An ox-drawn cart
+000000000252.2.007,quadruped_ridden,A lone rider on horseback,A lone rider on a camel
+000000000265.2.005,quadruped_ridden,A lone rider on horseback,A lone rider on a camel
+000000000265.4.002,quadruped_ridden,A rider gallops,A camel rider gallops
+000000000222.4.003,quadruped_ridden,A character rides a horse,A character rides a camel
+000000000001.5.002,biped_walk,A warrior,A bear
+000000000221.7.011,biped_walk,A warrior,A bear
+000000000362.2.005,biped_walk,A warrior in armor,A bear in armor
+000000000064.3.002,biped_walk,A warrior in armor,A bear in armor
+000000000201.1.008,biped_walk,A lone warrior in dark armor,A lone bear in dark armor
+000000000370.1.009,biped_walk,A warrior and his son,A bear and its cub
+000000000119.5.007,biped_walk,A man in a blue robe,A bear in a blue robe
+000000000191.6.038,biped_walk,A man in a brown coat,A bear in a brown coat
+000000000191.6.037,biped_walk,A man in a brown coat,A bear in a brown coat
+000000000391.0.016,biped_walk,A man in a suit,A bear in a suit
+000000000200.1.006,biped_walk,A character,A bear
+000000000404.1.006,biped_walk,A character,A bear
+000000002376.4.008,biped_walk,A character,A bear
+000000000130.0.015,biped_run,A character,A bear
+000000000256.3.010,biped_run,A character,A bear
+000000000431.5.009,biped_run,A lone figure,A lone bear

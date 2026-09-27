@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -170,6 +171,15 @@ class SelfAttention(nn.Module):
         self.k_spatial.weight.data=k_spa
         self.v_temporal.weight.data = v_temp
         self.v_spatial.weight.data = v_spa
+
+        if os.environ.get("FYM_SPLIT_COPY_BIAS") == "1":
+            # not in the release: carry the pretrained biases over instead of nn.Linear's random init
+            for full, tem, spa in ((self.q, self.q_temporal, self.q_spatial),
+                                   (self.k, self.k_temporal, self.k_spatial),
+                                   (self.v, self.v_temporal, self.v_spatial)):
+                chunks = [full.bias.data[i * head_dim:(i + 1) * head_dim] for i in range(len(self.heads_pos))]
+                tem.bias.data = torch.cat([c for c, t in zip(chunks, self.heads_pos) if t == 0]).to(tem.bias)
+                spa.bias.data = torch.cat([c for c, t in zip(chunks, self.heads_pos) if t != 0]).to(spa.bias)
 
         del self.q,self.k,self.v
         self.requires_grad_(False)

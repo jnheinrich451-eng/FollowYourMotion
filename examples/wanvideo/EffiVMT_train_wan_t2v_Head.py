@@ -657,6 +657,8 @@ def data_process(args):
 
 
 def train(args):
+    if os.environ.get("FYM_SEED") is not None:
+        pl.seed_everything(int(os.environ["FYM_SEED"]))
     dataset = TensorDataset(
         args.dataset_path,
         os.path.join(args.dataset_path, "metadata.csv"),

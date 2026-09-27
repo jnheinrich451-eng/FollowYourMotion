@@ -1,0 +1,25 @@
+# CogVideoX-5B, three seeds, two configs -- the seed-variance check.
+#
+# Purpose: the primary contrast is ditflow_z - backbone on MF, mean +0.059,
+# CI [+0.010, +0.115]. That interval is a bootstrap over *clips* with the seed
+# held at 1. If re-rolling the seed moves MF by more than ~0.06, the contrast
+# sits inside the noise of a single generation and Table 2's top rows lose their
+# claim. Right now that is simply unknown.
+#
+# Only the two configs in the contrast are here. Seed variance is a property of
+# the generator, and measuring it on all six would cost three times as much to
+# defend the same number.
+#
+# `run_tag` matches grid_5b.yaml on purpose, so this writes into the same tree
+# and the existing seed-1 cells are skipped rather than regenerated. `seeds` is
+# a list, so it is excluded from spec_hash -- adding seeds does not mark the
+# seed-1 results as drifted.
+
+run_tag: cogvx5b
+model: 5b
+video_length: 21   # the paper's count, and CogVideoX's native 4k+1
+seeds: [1, 2, 3]
+
+configs:
+  ditflow_z: {loss_type: flow, opt_mode: latent}
+  backbone:  {no_guidance: true, no_injection: true}

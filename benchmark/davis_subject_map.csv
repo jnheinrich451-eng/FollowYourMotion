@@ -1,0 +1,51 @@
+clip_id,locomotion,find,replace
+bike-packing,biped,A man,A bear
+breakdance,biped,A breakdancer,A bear
+dance-twirl,biped,A woman,A bear
+kite-surf,biped,A kitesurfer,A bear
+lab-coat,biped,Three girls,Three bears
+loading,biped,Two men,Two bears
+paragliding-launch,biped,Two paragliders,Two bears
+parkour,biped,A man,A bear
+india,biped,Several people,Several bears
+boxing-fisheye,biped,Two boxers,Two bears
+breakdance-flare,biped,A breakdancer,A bear
+color-run,biped,Runners,Bears
+crossing,biped,Two people,Two bears
+dance-jump,biped,A girl,A bear
+dancing,biped,A crowd of people,A crowd of bears
+disc-jockey,biped,A DJ,A bear
+drone,biped,A man,A bear
+hike,biped,A hiker,A bear
+hockey,biped,A hockey player,A bear
+kid-football,biped,A boy,A bear
+kite-walk,biped,A kitesurfer,A bear
+cat-girl,biped,A girl and a kitten,A bear and a puppy
+dogs-jump,biped,A man and two dogs,A bear and two wolves
+camel,quadruped,A camel,A horse
+cows,quadruped,A brown and white cow,A brown and white horse
+dog,quadruped,A golden retriever,A grey wolf
+goat,quadruped,A goat,A sheep
+libby,quadruped,A small dog,A red fox
+pigs,quadruped,Several pigs,Several sheep
+bear,quadruped,A brown bear,A lion
+dog-gooses,quadruped,A dog,A grey wolf
+dogs-scale,quadruped,Several dachshund puppies,Several kittens
+elephant,quadruped,An elephant,A rhinoceros
+blackswan,bird,A black swan,A white pelican
+flamingo,bird,A flamingo,A grey heron
+gold-fish,fish,Several goldfish,Several koi
+car-roundabout,vehicle_rigid,A dark car,A dark pickup truck
+drift-chicane,vehicle_rigid,A drift car,A drift truck
+drift-straight,vehicle_rigid,A red rally car,A red rally truck
+drift-turn,vehicle_rigid,A race car,A rally truck
+boat,vehicle_rigid,A small boat,A small ferry
+bus,vehicle_rigid,A white and blue bus,A white and blue truck
+car-turn,vehicle_rigid,A silver car,A silver pickup truck
+classic-car,vehicle_rigid,A vintage racing car,A vintage tractor
+soapbox,vehicle_rigid,A soapbox cart,A wooden barrel cart
+bmx-trees,ridden,A rider on a BMX bike,A rider on a motorcycle
+bmx-bumps,ridden,A rider on a BMX bike,A rider on a motorcycle
+mbike-trick,ridden,A rider on a motorcycle,A rider on a quad bike
+horsejump-high,ridden,A horse and rider,A camel and rider
+horsejump-low,ridden,A white horse and rider,A white camel and rider
